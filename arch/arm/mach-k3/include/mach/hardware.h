@@ -18,6 +18,12 @@
 
 #ifdef CONFIG_SOC_K3_J721S2
 #include "j721s2_hardware.h"
+#include "j721s2_qos.h"
+#endif
+
+#ifdef CONFIG_SOC_K3_J784S4
+#include "j784s4_hardware.h"
+#include "j784s4_qos.h"
 #endif
 
 #ifdef CONFIG_SOC_K3_AM642
@@ -110,5 +116,11 @@ struct k3_qos_data {
 
 extern struct k3_qos_data am62a_qos_data[];
 extern u32 am62a_qos_count;
+
+extern struct k3_qos_data j721s2_qos_data[];
+extern u32 j721s2_qos_count;
+
+extern struct k3_qos_data j784s4_qos_data[];
+extern u32 j784s4_qos_count;
 
 #endif /* _ASM_ARCH_HARDWARE_H_ */

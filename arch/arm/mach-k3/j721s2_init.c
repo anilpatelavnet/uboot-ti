@@ -138,6 +138,14 @@ static void store_boot_info_from_rom(void)
 	       sizeof(struct rom_extended_boot_data));
 }
 
+static void setup_qos(void)
+{
+	u32 i;
+
+	for (i = 0; i < j721s2_qos_count; i++)
+		writel(j721s2_qos_data[i].val, (uintptr_t)j721s2_qos_data[i].reg);
+}
+
 void k3_spl_init(void)
 {
 	struct udevice *dev;
@@ -232,6 +240,9 @@ void k3_mem_init(void)
 		if (ret)
 			panic("DRAM 1 init failed: %d\n", ret);
 	}
+
+	setup_qos();
+
 	spl_enable_dcache();
 }
 
