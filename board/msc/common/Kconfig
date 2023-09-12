@@ -1,0 +1,49 @@
+#
+# Copyright (C) 2023 AVNET Embedded
+#
+# SPDX-License-Identifier:      GPL-2.0+
+#
+
+menu "MSC board/module specific features"
+
+config BOARDINFO_EEPROM
+	bool "Board information EEPROM storage"
+	default y
+	help
+	  Enable board information storage in EEPROM
+
+config SPL_BOARDINFO_EEPROM
+	bool "BOARDINFO in SPL"
+	depends on SPL && BOARDINFO_EEPROM
+	default y
+	help
+		Enable this if the SPL needs boardinfo
+
+config DECODE_FEATURE
+	bool
+	default y if BOARDINFO_EEPROM
+
+if BOARDINFO_EEPROM
+
+config CMD_BOARDINFO
+	bool "Enable the 'boardinfo' command"
+	help
+	  Provides access to the board infromations like
+	  boardname, serial number, etc
+
+endif
+
+config CMD_FDTLOAD
+	bool "Provides MSC's 'fdtload' command"
+	default n
+	help
+	  This command supports loading a bunch of devicetree and merging them into one.
+
+config SPL_CMD_FDTLOAD
+	bool "FDTLOAD in SPL"
+	depends on SPL && CMD_FDTLOAD
+	default y
+	help
+		Enable this if the SPL needs fdtload
+
+endmenu
