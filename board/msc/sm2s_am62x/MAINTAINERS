@@ -2,6 +2,6 @@ SM2S AM62x BOARD
 M:	Anil Patel <anil.patel@softwebsolutions.com>
 S:	Maintained
 F:	board/msc/sm2s_am62x/
-F:	include/configs/am62x_evm.h
-F:	configs/sm2s_am62x_r5_defconfig
-F:	configs/sm2s_am62x_a53_defconfig
+F:	include/configs/msc_sm2s_am62x.h
+F:	configs/msc_sm2s_am62x_r5_defconfig
+F:	configs/msc_sm2s_am62x_a53_defconfig

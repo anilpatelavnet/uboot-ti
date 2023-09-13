@@ -28,13 +28,13 @@ endchoice
 if TARGET_SM2S_AM625_A53
 
 config SYS_BOARD
-       default "am62x"
+       default "sm2s_am62x"
 
 config SYS_VENDOR
        default "msc"
 
 config SYS_CONFIG_NAME
-       default "sm2s_am62x"
+       default "msc_sm2s_am62x"
 
 source "board/ti/common/Kconfig"
 
@@ -45,13 +45,13 @@ endif
 if TARGET_SM2S_AM625_R5
 
 config SYS_BOARD
-       default "am62x"
+       default "sm2s_am62x"
 
 config SYS_VENDOR
        default "msc"
 
 config SYS_CONFIG_NAME
-       default "sm2s_am62x"
+       default "msc_sm2s_am62x"
 
 config SPL_LDSCRIPT
 	default "arch/arm/mach-omap2/u-boot-spl.lds"
