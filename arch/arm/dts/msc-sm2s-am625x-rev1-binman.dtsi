@@ -8,8 +8,8 @@
 #ifdef CONFIG_TARGET_SM2S_AM625_R5
 
 &binman {
-	tiboot3-am62x-hs-evm.bin {
-		filename = "tiboot3-am62x-hs.bin";
+	tiboot3-am62x-hs-msc.bin {
+		filename = "tiboot3-am62x-hs-msc.bin";
 		ti-secure-rom {
 			content = <&u_boot_spl>, <&ti_fs_enc>, <&combined_tifs_cfg>,
 				<&combined_dm_cfg>, <&sysfw_inner_cert>;
@@ -53,9 +53,8 @@
 };
 
 &binman {
-	tiboot3-am62x-hs-fs-evm.bin {
-		filename = "tiboot3-am62x-hs-fs.bin";
-		symlink = "tiboot3.bin";
+	tiboot3-am62x-hs-fs-msc.bin {
+		filename = "tiboot3-am62x-hs-fs-msc.bin";
 		ti-secure-rom {
 			content = <&u_boot_spl_fs>, <&ti_fs_enc_fs>, <&combined_tifs_cfg_fs>,
 				<&combined_dm_cfg_fs>, <&sysfw_inner_cert_fs>;
@@ -99,8 +98,9 @@
 };
 
 &binman {
-	tiboot3-am62x-gp-evm.bin {
-		filename = "tiboot3-am62x-gp.bin";
+	tiboot3-am62x-gp-msc.bin {
+		filename = "tiboot3-am62x-gp-msc.bin";
+		symlink = "tiboot3.bin";
 		ti-secure-rom {
 			content = <&u_boot_spl_unsigned>, <&ti_fs_gp>,
 				<&combined_tifs_cfg_gp>, <&combined_dm_cfg_gp>;
