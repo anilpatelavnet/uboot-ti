@@ -17,6 +17,16 @@
 /* Now for the remaining common defines */
 #include <configs/ti_armv7_common.h>
 
+
+#define CONFIG_SYS_I2C_SPEED            100000
+#define I2C_GP          0
+#define I2C_PM          1
+#define I2C_DEV         2
+#define I2C_LCD         3
+#define I2C_CAM         4
+#define BI_EEPROM_I2C_ADDR      0x50
+#define PMIC_I2C_ADDR           0x30
+
 /* NAND Driver config */
 #define CFG_SYS_NAND_BASE            0x51000000
 
