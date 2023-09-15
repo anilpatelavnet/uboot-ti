@@ -16,10 +16,10 @@
 #include <asm/io.h>
 #include <errno.h>
 #include <asm/io.h>
-#include <asm/mach-imx/iomux-v3.h>
-#include <asm/arch/imx8mq_pins.h>
 #include <asm/arch/sys_proto.h>
 #include <asm-generic/gpio.h>
+#include <asm/arch/hardware.h>
+#include <dm/uclass.h>
 
 struct boot_dev_descriptor {
 	const char* name;
