@@ -19,7 +19,7 @@
 	model = "Avnet sm2s-am6254 smarc module";
 
 	aliases {
-		serial2 = &main_uart0;
+		serial2 = &main_uart2;
 		mmc0 = &sdhci0;
 		mmc1 = &sdhci1;
 		mmc2 = &sdhci2;
@@ -186,6 +186,13 @@
 		>;
 	};
 
+	main_uart2_pins_default: main-uart0-pins-default {
+		pinctrl-single,pins = <
+			AM62X_IOPAD(0x0b8, PIN_INPUT, 4) /* (D14) UART2_RXD */
+			AM62X_IOPAD(0x0bc, PIN_OUTPUT, 4) /* (V24) UART2_TXD */
+		>;
+	};
+
 	main_i2c0_pins_default: main-i2c0-pins-default {
 		pinctrl-single,pins = <
 			AM62X_IOPAD(0x1e0, PIN_INPUT_PULLUP, 0) /* (B16) I2C0_SCL */
@@ -323,6 +330,12 @@
 	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_uart0_pins_default>;
+};
+
+&main_uart2 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&main_uart2_pins_default>;
 };
 
 &main_uart1 {
