@@ -43,4 +43,20 @@
 #define CFG_SYS_NAND_ECCBYTES        14
 /*-- end NAND config --*/
 
+#define BOOTDEV_SD \
+	"boot_sd=" \
+		"setenv bootpart 1:2;" \
+		"setenv mmcdev 1;" \
+		"run envboot; run distro_bootcmd;" \
+		"\0"
+
+
+#define BOOTDEV_EMMC \
+	"boot_emmc=" \
+		"setenv bootpart 0:2;" \
+		"setenv mmcdev 0;" \
+		"run envboot; run distro_bootcmd;" \
+		"\0"
+
+
 #endif /* __CONFIG_MSC_SM2S_AM62X_H */
