@@ -48,6 +48,7 @@ static int select_boot_dev(void)
 		printf("Error: couldn't get 'boot_sel0' gpio, check your DT.\n");
 		return (-ENODEV);
 	}
+	printf("boot_sel0 value : %d\n", dm_gpio_get_value(desc) << 0);
 
 	bootsel |= dm_gpio_get_value(desc) << 0;
 
@@ -57,6 +58,8 @@ static int select_boot_dev(void)
 		return (-ENODEV);
 	}
 
+	printf("boot_sel1 value : %d\n", dm_gpio_get_value(desc) << 1);
+
 	bootsel |= dm_gpio_get_value(desc) << 1;
 
 	ret = gpio_hog_lookup_name("boot_sel2", &desc);
@@ -64,6 +67,8 @@ static int select_boot_dev(void)
 		printf("Error: couldn't get 'boot_sel2' gpio, check your DT.\n");
 		return (-ENODEV);
 	}
+
+	printf("boot_sel2 value : %d\n", dm_gpio_get_value(desc) << 2);
 
 	bootsel |= dm_gpio_get_value(desc) << 2;
 
