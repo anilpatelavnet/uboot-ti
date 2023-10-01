@@ -38,7 +38,7 @@
 	};
 
 	opp-table {
-		/* Add 1.4GHz OPP for am625-sk board. Requires VDD_CORE to be at 0.85V */
+		/* Add 1.4GHz OPP for am625 board. Requires VDD_CORE to be at 0.85V */
 		opp-1400000000 {
 			opp-hz = /bits/ 64 <1400000000>;
 			opp-supported-hw = <0x01 0x0004>;
@@ -174,6 +174,14 @@
 		pinctrl-single,pins = <
 			AM62X_IOPAD(0x044, PIN_INPUT_PULLUP, 0) /* (A8) MCU_I2C0_SCL.MCU_I2C0_SCL */
 			AM62X_IOPAD(0x048, PIN_INPUT_PULLUP, 0) /* (D10) MCU_I2C0_SDA.MCU_I2C0_SDA */
+		>;
+	};
+
+	mcu_gpio0_pins_default: mcu-gpio0-pins-default {
+		pinctrl-single,pins = <
+			AM62X_IOPAD(0x000, PIN_INPUT, 7) /* (E8) MCU_I2C0_SCL.MCU_I2C0_SCL */
+			AM62X_IOPAD(0x004, PIN_INPUT, 7) /* (B8) MCU_I2C0_SDA.MCU_I2C0_SDA */
+			AM62X_IOPAD(0x008, PIN_INPUT, 7) /* (A7) MCU_I2C0_SDA.MCU_I2C0_SDA */
 		>;
 	};
 };
@@ -318,7 +326,11 @@
 		>;
 	};
 
-
+	pmic_irq_pins_default: pmic-irq-pins-default {
+		pinctrl-single,pins = <
+			AM62X_IOPAD(0x01f4, PIN_INPUT_PULLUP, 0) /*(D16) EXTINTn*/
+		>;
+	};
 };
 
 &wkup_uart0 {
@@ -345,8 +357,8 @@
 
 &mcu_i2c0 {
 	clock-frequency = <400000>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&mcu_i2c0_pins_default>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&mcu_i2c0_pins_default>;
 	status = "okay";
 
 	module_eeprom@50 {
@@ -381,6 +393,30 @@
 	clock-frequency = <400000>;
 };
 
+&mcu_gpio0{
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&mcu_gpio0_pins_default>;
+
+	boot_sel0 {
+		gpio-hog;
+		input;
+		gpios = <0 GPIO_ACTIVE_HIGH>;
+	};
+
+	boot_sel1 {
+		gpio-hog;
+		input;
+		gpios = <1 GPIO_ACTIVE_HIGH>;
+	};
+
+	boot_sel2 {
+		gpio-hog;
+		input;
+		gpios = <2 GPIO_ACTIVE_HIGH>;
+	};
+};
+
 &main_i2c2 {
 	#address-cells = <1>;
 	#size-cells = <0>;
@@ -392,11 +428,15 @@
 	tps65219: pmic@30 {
 		compatible = "ti,tps65219";
 		reg = <0x30>;
-		ti,system-power-controller;
-		/*pinctrl-names = "default";*/
-		/*pinctrl-0 = <&pmic_irq_pins_default>;*/
-		/*interrupt-parent = <&gic500>;
-          interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;*/
+		pinctrl-names = "default";
+		pinctrl-0 = <&pmic_irq_pins_default>;
+		interrupt-parent = <&gic500>;
+		interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-controller;
+		#interrupt-cells = <1>;
+
+		system-power-controller;
+		ti,power-button;
 
 		buck1-supply = <&vcc_3v3_sys>;
 		buck2-supply = <&vcc_3v3_sys>;
@@ -409,8 +449,8 @@
 		regulators {
 			buck1_reg: buck1 {
 				regulator-name = "VDD_CORE";
-				regulator-min-microvolt = <750000>;
-				regulator-max-microvolt = <1000000>;
+				regulator-min-microvolt = <850000>;
+				regulator-max-microvolt = <850000>;
 				regulator-boot-on;
 				regulator-always-on;
 			};
@@ -425,39 +465,40 @@
 
 			buck3_reg: buck3 {
 				regulator-name = "1V2_DDR";
-				regulator-min-microvolt = <1100000>;
+				regulator-min-microvolt = <1200000>;
 				regulator-max-microvolt = <1200000>;
 				regulator-boot-on;
 				regulator-always-on;
 			};
 
-		   ldo1_reg: ldo1 {
+			ldo1_reg: ldo1 {
 				regulator-name = "ldo1"; /*VDDSHV_SD_IO_PMIC*/
-				regulator-min-microvolt = <18000000>;
-				regulator-max-microvolt = <33000000>;
-				regulator-allow-bypass;
-		   };
-
-		   ldo2_reg: ldo2 {
-				regulator-name = "ldo2"; /*CARRIER_1V8*/
-				regulator-min-microvolt = <18000000>;
-				regulator-max-microvolt = <18000000>;
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
 				regulator-boot-on;
 				regulator-always-on;
-		   };
+			};
 
-		   ldo3_reg: ldo3 {
+			ldo2_reg: ldo2 {
+				regulator-name = "ldo2"; /*CARRIER_1V8*/
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				regulator-boot-on;
+				regulator-always-on;
+			};
+
+			ldo3_reg: ldo3 {
 				regulator-name = "ldo3"; /*VDDA_1V8*/
-				regulator-min-microvolt = <18000000>;
-				regulator-max-microvolt = <18000000>;
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
 				regulator-boot-on;
 				regulator-always-on;
 			};
 
 			ldo4_reg: ldo4 {
 				regulator-name = "ldo4"; /*VDD_PHY_2V5*/
-				regulator-min-microvolt = <25000000>;
-				regulator-max-microvolt = <25000000>;
+				regulator-min-microvolt = <2500000>;
+				regulator-max-microvolt = <2500000>;
 				regulator-boot-on;
 				regulator-always-on;
 			};
@@ -491,7 +532,7 @@
 	/* SD/MMC */
 	status = "okay";
 	vmmc-supply = <&vdd_mmc1>;
-	vqmmc-supply = <&vdd_sd_dv>;
+	vqmmc-supply = <&vdd_mmc1>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_mmc1_pins_default>;
 	ti,driver-strength-ohm = <50>;
