@@ -18,6 +18,7 @@
 #include <i2c.h>
 #include <i2c_eeprom.h>
 #include "../common/boardinfo.h"
+#include "configs/msc_sm2s_am62x.h"
 
 int read_boardinfo(int offset, uint8_t *buffer, int size)
 {
