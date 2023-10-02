@@ -321,11 +321,13 @@ int board_late_init(void)
 #endif
 
                 fdt = env_get("fdt_module");
-                if (!strcmp(fdt, "undefined")) {
-                        snprintf(buff, ENV_FDTFILE_MAX_SIZE, "%s-%s-%s-%s-module.dtb",
-                                        bi_get_company(binfo), bi_get_form_factor(binfo),
+                if ( (fdt == NULL) || (!strcmp(fdt, "undefined")) ) {
+                        snprintf(buff, ENV_FDTFILE_MAX_SIZE, "msc/am62xx/%s-%s-%s-%s-%s-module.dtb",
+                                        bi_get_company(binfo), bi_get_form_factor(binfo), bi_get_platform(binfo),
                                         bi_get_processor(binfo), bi_get_feature(binfo));
                         env_set("fdt_module", buff);
+						env_set("name_fdt", buff);
+						env_set("default_device_tree", buff);
                 }
         }
 
