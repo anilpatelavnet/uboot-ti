@@ -198,7 +198,27 @@
 
 /* Incorporate settings into the U-Boot environment */
 #define CFG_EXTRA_ENV_SETTINGS					\
-	BOOTENV
+	BOOTENV		\
+        "default_device_tree=msc/am62xx/msc-sm2s-am62x-qc-14402C1I-module.dtb\0" \
+        "name_fdt=msc/am62xx/msc-sm2s-am62x-qc-14402C1I-module.dtb\0" \
+        "boot_targets=ti_mmc mmc0 mmc1\0" \
+        BOOTDEV_EMMC \
+        BOOTDEV_SD \
+        "\0"
+
+#define BOOTDEV_SD \
+        "boot_sd=" \
+                "setenv bootpart 1:2;" \
+                "setenv mmcdev 1;" \
+                "run envboot; run distro_bootcmd;" \
+                "\0"
+
+#define BOOTDEV_EMMC \
+        "boot_emmc=" \
+                "setenv bootpart 0:2;" \
+                "setenv mmcdev 0;" \
+                "run envboot; run distro_bootcmd;" \
+                "\0"
 
 #endif
 
