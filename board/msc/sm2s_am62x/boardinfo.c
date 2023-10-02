@@ -59,5 +59,5 @@ const char* bi_get_platform(const board_info_t *bi)
 
 const char* bi_get_processor(const board_info_t *bi)
 {
-	return "am625x";
+	return "qc";
 }
