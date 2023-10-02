@@ -199,6 +199,7 @@
 /* Incorporate settings into the U-Boot environment */
 #define CFG_EXTRA_ENV_SETTINGS					\
 	BOOTENV		\
+	"console=ttyS4,115200n8\0" \
         "default_device_tree=msc/am62xx/msc-sm2s-am62x-qc-14402C1I-module.dtb\0" \
         "name_fdt=msc/am62xx/msc-sm2s-am62x-qc-14402C1I-module.dtb\0" \
         "boot_targets=ti_mmc mmc0 mmc1\0" \
