@@ -77,15 +77,6 @@
 	bootph-pre-ram;
 };
 
-
-&main_uart2_pins_default {
-	bootph-pre-ram;
-};
-
-&main_uart2 {
-	bootph-pre-ram;
-};
-
 &cbass_mcu {
 	bootph-pre-ram;
 };
