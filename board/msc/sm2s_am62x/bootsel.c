@@ -32,9 +32,9 @@ static struct boot_dev_descriptor boot_dev[] = {
 	[2] = { .name = "",     .full_name = "" },
 	[3] = { .name = "",     .full_name = "" },
 	[4] = { .name = "",     .full_name = "" },
-	[5] = { .name = "net",  .full_name = "network/ethernet" },
+	[5] = { .name = "",  .full_name = "" },
 	[6] = { .name = "emmc", .full_name = "module eMMC flash" },
-	[7] = { .name = "usb",  .full_name = "USB" },
+	[7] = { .name = "",  .full_name = "" },
 };
 
 static int select_boot_dev(void)
